@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-gb" xml:lang="en-gb">
+<head>
+<title>Feedback on Graph Assignment</title>
+<style type="text/css">
+   div    { font-family:monospace; margin: 0 0 20px 40px; }
+  .report { font-weight:bold; margin-top:0; margin-bottom:0; }
+  .output { margin-top:0; }
+  .test   { font-family:monospace; }
+  .pass   { color:green; }
+  .fail   { color:red; }
+  .total  { font-weight:bold; font-size:1.3em; }
+</style>
+</head>
+<body>
+
+<h1>Feedback on Graph Assignment</h1>
+
+<p>This feedback describes the results of running the auto-marker tests on
+your program.  The marking is arranged so that you can get a pass mark for a
+perfect program with no extensions.</p>
+
+
+<h2>Compiling</h2>
+
+<div>javac GraphSearch.java</div>
+
+<h2>Part One: Loading and Printing Graphs.</h2>
+
+<p>This test makes sure that you have been able to read in the graph using the reader
+class and are able to navigate through it</p>
+
+<div>mark 10</div>
+<div>out 1 46 58
+3 22 23
+7 42
+13 14 23 52
+14 13 15
+15 14 29 41
+22 3 23 34 65
+23 3 13 22 67
+29 15 41 42 55
+34 22 46 63
+41 15 29 52 87
+42 7 29 72
+46 1 34 58 78
+52 13 41 67 86
+55 29 89
+58 1 46 74 77
+63 34 65 79 100
+65 22 63 67 82
+67 23 52 65 82 102
+72 42 105 107
+74 58 94
+77 58 78 94 124
+78 46 77 79
+79 63 78
+82 65 67 100 140
+86 52 87 102 116
+87 41 86 105
+89 55 105
+93 94
+94 74 77 93
+100 63 82 111
+102 67 86 127
+105 72 87 89 107 108
+107 72 105 161
+108 105 116 135
+111 100 124
+116 86 108 127 142
+122 123 144
+123 122 124 144 165
+124 77 111 123 153
+127 102 116 133
+128 135 142 161 187 199
+133 127 140 157
+135 108 128 161
+140 82 133 154 156
+142 116 128 157
+144 122 123 163
+153 124 154 180 184
+154 140 153 156
+156 140 154 157 184
+157 133 142 156 185
+161 107 128 135 199
+163 144 176 191
+165 123 180 191
+176 163 190
+180 153 165 184 190
+184 153 156 180 185
+185 157 184 187 199
+187 128 185 199
+190 176 180 191
+191 163 165 190
+199 128 161 185 187
+</div>
+
+<div>java GraphSearch -p1 graph.txt</div>
+
+
+
+
+
+<h2>Part Two: Neighbour Search</h2>
+
+<p>This section is to check that your program is able to do the neighbour search properly</p>
+
+<div>mark 2</div>
+<div>out Number of nodes with at least 4 neighbours: 27
+</div>
+<div>java GraphSearch -p2 graph.txt 4</div>
+
+<div>mark 2</div>
+<div>out Number of nodes with at least -1 neighbours: 62
+</div>
+<div>java GraphSearch -p2 graph.txt -1</div>
+
+<div>mark 2</div>
+<div>out Number of nodes with at least 8 neighbours: 0
+</div>
+<div>java GraphSearch -p2 graph.txt 8</div>
+
+<div>mark 2</div>
+<div>out Number of nodes with at least 3 neighbours: 50
+</div>
+<div>java GraphSearch -p2 graph.txt 3</div>
+
+<div>mark 2</div>
+<div>out Number of nodes with at least 2 neighbours: 5
+</div>
+
+
+<h2>Part Three: Fully Connected Neighbours</h2>
+
+<p>Checks to determine if your program can identify sets of fully connected neighbours</p>
+
+
+<div>mark 5</div>
+<div>out Number of nodes with fully connected neighbours: 5
+</div>
+<div>java GraphSearch -p3 graph.txt</div>
+
+
+
+
+
+<h2>Part Four: Clique Search</h2>
+
+<p>Checks to see if your program is able to find cliques of a certain size</p>
+
+<div>mark 2</div>
+<div>out Number of cliques of size 3: 12
+</div>
+<div>java GraphSearch -p4 graph.txt 3</div>
+
+<div>mark 2</div>
+<div>out Number of cliques of size 5: 0
+</div>
+<div>java GraphSearch -p4 graph.txt 5</div>
+
+<div>mark 2</div>
+<div>out Number of cliques of size 2: 101
+</div>
+<div>java GraphSearch -p4 graph.txt 2</div>
+
+<div>mark 2</div>
+<div>out Number of cliques of size 7: 0
+</div>
+<div>java GraphSearch -p4 graph.txt 7</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<h2>Total</h2>
+
+<div>total mark</div>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
