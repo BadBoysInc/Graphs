@@ -19,8 +19,7 @@ class GraphSearch{
 		//printOut(reader.graph().nodes());
 		//neighbourSearch(reader.graph(), 0);
 		//printOut(findFullyConnectedNeighbours(reader.graph()));
-		for(int i = 0; i<200; i++)
-			System.out.println(findNumberOfCliques(reader.graph(), i));
+		System.out.println(findNumberOfCliques(reader.graph(), 3));
 	}
 
 	private static void printOut(Set<Node> nodes) {
