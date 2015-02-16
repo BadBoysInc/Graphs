@@ -13,8 +13,9 @@ class GraphSearch{
 			}		
 		};
 		
-		Reader reader = new Reader();
-		readIn(reader, args[1]);
+		//Reader reader = new Reader();
+		//readIn(reader, args[1]);
+		/*		
 		if(args[0].equals("-p1")){
 			printOut(reader.graph().nodes());
 		}else if(args[0].equals("-p2")){
@@ -22,15 +23,24 @@ class GraphSearch{
 			int n = neighbourSearch(reader.graph(), i).size();
 			System.out.println("Number of nodes with at least " +  i + " neighbours: " + n);
 		}else if(args[0].equals("-p3")){
-			System.out.println("number of nodes with fully connected neighbours: " + findFullyConnectedNeighbours(reader.graph()));
+			System.out.println("number of nodes with fully connected neighbours: " + findFullyConnectedNeighbours(reader.graph()).size());
 		}else if(args[0].equals("-p4")){
 			int i = Integer.parseInt(args[2]);
 			System.out.println("Number of cliques of size " +  i + ": " + findNumberOfCliques(reader.graph(), i));		
 		}
-		//printOut(reader.graph().nodes());
-		//neighbourSearch(reader.graph(), 0);
-		//printOut(findFullyConnectedNeighbours(reader.graph()));
-		//System.out.println(findNumberOfCliques(reader.graph(), 3));
+		*/
+		Graph test 	= new Graph();
+		Node[] n 	= {new Node("0"), new Node("1"),new Node("2"), new Node("3"), new Node("4"), new Node("5")};
+		n[0].addNeighbour(n[4]);
+		n[1].addNeighbour(n[2]);n[1].addNeighbour(n[5]);
+		n[2].addNeighbour(n[1]);n[2].addNeighbour(n[3]);n[2].addNeighbour(n[4]);
+		n[3].addNeighbour(n[2]);
+		n[4].addNeighbour(n[5]);n[4].addNeighbour(n[0]);n[4].addNeighbour(n[2]);
+		n[5].addNeighbour(n[1]);n[5].addNeighbour(n[4]);
+		for(int i = 0; i < 6; i++)		
+			test.add(n[i]);
+		for(int i = 1; i < 10; i++)
+			System.out.println("Number of cliques of size " +  i + ": " + findNumberOfCliques(test, i));
 	}
 
 	private static void printOut(Set<Node> nodes) {
@@ -52,7 +62,7 @@ class GraphSearch{
 		}
 		
 	}
-
+	
 	private static Iterator getSortedIterator(Set<Node> nodes) {
 		List<Node> sortedNodes = new ArrayList<Node>(nodes);
 		Collections.sort(sortedNodes, compr);
@@ -142,13 +152,15 @@ class GraphSearch{
 		int total = 0;
 		while(it.hasNext()){
 			Node node = it.next();
-			total = total + sumPaths(doneNodes, node, n);
+			Set<Node> visited = new HashSet<Node>();
+			visited.add(node);
+			total = total + sumPaths(doneNodes, node, visited, n);
 			doneNodes.add(node);
 		}
 		return total;
 	}
 				
-	public static int sumPaths(Set<Node> doneNodes, Node node, int n){
+	public static int sumPaths(Set<Node> doneNodes, Node node, Set<Node> visited, int n){
 		int total = 0;
 		if((n == 1) && (!doneNodes.contains(node))){
 			return 1;
@@ -158,10 +170,13 @@ class GraphSearch{
 			Iterator<Node> it = getSortedIterator(node.neighbours());
 			while(it.hasNext()){
 				Node neighbour = it.next();
-				total = total + sumPaths(doneNodes, neighbour, n-1);
+				if(!visited.contains(neighbour)){
+					visited.add(node);
+					total = total + sumPaths(doneNodes, neighbour, visited, n-1);
+				}			
 			}
 			return total;
 		}
-	}
+	} 
 
 }
