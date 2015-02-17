@@ -13,9 +13,9 @@ class GraphSearch{
 			}		
 		};
 		
-		//Reader reader = new Reader();
-		//readIn(reader, args[1]);
-		/*		
+		Reader reader = new Reader();
+		readIn(reader, args[1]);
+			
 		if(args[0].equals("-p1")){
 			printOut(reader.graph().nodes());
 		}else if(args[0].equals("-p2")){
@@ -28,19 +28,20 @@ class GraphSearch{
 			int i = Integer.parseInt(args[2]);
 			System.out.println("Number of cliques of size " +  i + ": " + findNumberOfCliques(reader.graph(), i));		
 		}
-		*/
+		/*//Test Code
 		Graph test 	= new Graph();
 		Node[] n 	= {new Node("0"), new Node("1"),new Node("2"), new Node("3"), new Node("4"), new Node("5")};
 		n[0].addNeighbour(n[4]);
-		n[1].addNeighbour(n[2]);n[1].addNeighbour(n[5]);
+		n[1].addNeighbour(n[2]);n[1].addNeighbour(n[5]);n[1].addNeighbour(n[3]);
 		n[2].addNeighbour(n[1]);n[2].addNeighbour(n[3]);n[2].addNeighbour(n[4]);
-		n[3].addNeighbour(n[2]);
+		n[3].addNeighbour(n[2]);n[3].addNeighbour(n[1]);
 		n[4].addNeighbour(n[5]);n[4].addNeighbour(n[0]);n[4].addNeighbour(n[2]);
 		n[5].addNeighbour(n[1]);n[5].addNeighbour(n[4]);
 		for(int i = 0; i < 6; i++)		
 			test.add(n[i]);
 		for(int i = 1; i < 10; i++)
-			System.out.println("Number of cliques of size " +  i + ": " + findNumberOfCliques(test, i));
+			System.out.println("Number of cliques of size " +  i + ": " + findNumberOfCliques(reader.graph(), i));
+		*/
 	}
 
 	private static void printOut(Set<Node> nodes) {
@@ -62,6 +63,7 @@ class GraphSearch{
 		}
 		
 	}
+
 	
 	private static Iterator getSortedIterator(Set<Node> nodes) {
 		List<Node> sortedNodes = new ArrayList<Node>(nodes);
@@ -147,36 +149,65 @@ class GraphSearch{
 	}
 	
 	public static int findNumberOfCliques(Graph graph, int n){
-		Set<Node> doneNodes = new HashSet<Node>();
-		Iterator<Node> it = getSortedIterator(graph.nodes());
-		int total = 0;
-		while(it.hasNext()){
-			Node node = it.next();
-			Set<Node> visited = new HashSet<Node>();
-			visited.add(node);
-			total = total + sumPaths(doneNodes, node, visited, n);
-			doneNodes.add(node);
+		
+		Set<Set<Node>> SingletCliques = new HashSet<Set<Node>>();
+		
+		for(Node node: graph.nodes()){//makes a load of cliques each with one node
+			Set<Node> tmp = new HashSet<Node>();
+			tmp.add(node);
+			SingletCliques.add(tmp);
 		}
-		return total;
-	}
-				
-	public static int sumPaths(Set<Node> doneNodes, Node node, Set<Node> visited, int n){
-		int total = 0;
-		if((n == 1) && (!doneNodes.contains(node))){
-			return 1;
-		}else if(n == 1){
-			return 0;
-		}else{
-			Iterator<Node> it = getSortedIterator(node.neighbours());
-			while(it.hasNext()){
-				Node neighbour = it.next();
-				if(!visited.contains(neighbour)){
-					visited.add(node);
-					total = total + sumPaths(doneNodes, neighbour, visited, n-1);
-				}			
+		Set<Set<Node>> cliquesOld = SingletCliques;
+		Set<Set<Node>> cliquesNew;
+		for(int i = 1; i<n; i++){//adds every possibility of a new neighbour to each clique each time
+			cliquesNew = new HashSet<Set<Node>>();
+			for(Set<Node> clique: cliquesOld){//goes through every clique
+				for(Node neighbour: clique.iterator().next().neighbours()){//goes through every neighbour of first node to see if it should add
+					boolean neighboursIsConnectedToAllNodesInClique = true;//init
+					for(Node node: clique){//checks all node in clique to see if connects to current neighbour
+						if(!neighbour.neighbours().contains(node)){
+							neighboursIsConnectedToAllNodesInClique = false;
+						}
+					}
+					if(neighboursIsConnectedToAllNodesInClique){//if good make copy of clique with new neighbour added
+						Set<Node> newClique = new HashSet<Node>(clique);
+						newClique.add(neighbour);
+						if(cliqueNotAlreadyThere(cliquesNew, newClique)){//only add to set of cliques if it's not already there
+							cliquesNew.add(newClique);
+						}
+					}
+				}
 			}
-			return total;
+				
+			cliquesOld = cliquesNew;//get sets ready for next iteration.
+			
 		}
-	} 
+		
+		return cliquesOld.size();
+		
+	}
+	
+	private static boolean cliqueNotAlreadyThere(Set<Set<Node>> cliques, Set<Node> newClique) {
+		
+		for(Set<Node> clique: cliques){
+			if(cliquesAreEqual(clique, newClique)){
+				return false;
+			}
+		}
+		return true;
+	}
 
+	private static boolean cliquesAreEqual(Set<Node> clique, Set<Node> newClique) {
+		
+		for(Node node: clique){
+			if(!newClique.contains(node)){
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
 }
+
+	
