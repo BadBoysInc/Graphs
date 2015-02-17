@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-gb" xml:lang="en-gb">
+<head>
+<title>Feedback on Graph Assignment</title>
+<style type="text/css">
+   div    { font-family:monospace; margin: 0 0 20px 40px; }
+  .report { font-weight:bold; margin-top:0; margin-bottom:0; }
+  .output { margin-top:0; }
+  .test   { font-family:monospace; }
+  .pass   { color:green; }
+  .fail   { color:red; }
+  .total  { font-weight:bold; font-size:1.3em; }
+</style>
+</head>
+<body>
+
+<h1>Feedback on Graph Assignment</h1>
+
+<p>This feedback describes the results of running the auto-marker tests on
+your program.  The marking is arranged so that you can get a pass mark for a
+perfect program with no extensions.</p>
+
+
+<h2>Compiling</h2>
+
+<pre><span class='test'>javac GraphSearch.java</span> <span class='pass'>pass</span></pre>
+
+<h2>Part One: Loading and Printing Graphs.</h2>
+
+<p>This test makes sure that you have been able to read in the graph using the reader
+class and are able to navigate through it</p>
+
+
+<pre><span class='test'>GraphSearch -p1 graph.txt</span> <span class='pass'>pass</span></pre>
+
+
+
+
+
+<h2>Part Two: Neighbour Search</h2>
+
+<p>This section is to check that your program is able to do the neighbour search properly</p>
+
+<pre><span class='test'>GraphSearch -p2 graph.txt 4</span> <span class='pass'>pass</span></pre>
+
+<pre><span class='test'>GraphSearch -p2 graph.txt -1</span> <span class='pass'>pass</span></pre>
+
+<pre><span class='test'>GraphSearch -p2 graph.txt 8</span> <span class='pass'>pass</span></pre>
+
+<pre><span class='test'>GraphSearch -p2 graph.txt 3</span> <span class='pass'>pass</span></pre>
+
+
+
+<h2>Part Three: Fully Connected Neighbours</h2>
+
+<p>Checks to determine if your program can identify sets of fully connected neighbours</p>
+
+
+<pre><span class='test'>GraphSearch -p3 graph.txt</span> <span class='pass'>pass</span></pre>
+
+
+
+
+
+<h2>Part Four: Clique Search</h2>
+
+<p>Checks to see if your program is able to find cliques of a certain size</p>
+
+<pre><span class='test'>GraphSearch -p4 graph.txt 3</span> <span class='pass'>pass</span></pre>
+
+<pre><span class='test'>GraphSearch -p4 graph.txt 5</span> <span class='pass'>pass</span></pre>
+
+<pre><span class='test'>GraphSearch -p4 graph.txt 2</span> <span class='pass'>pass</span></pre>
+
+<pre><span class='test'>GraphSearch -p4 graph.txt 7</span> <span class='pass'>pass</span></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+<h2>Total</h2>
+
+<p class='total'>Total mark: 32 out of 32</p>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

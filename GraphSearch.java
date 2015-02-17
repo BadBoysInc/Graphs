@@ -23,25 +23,11 @@ class GraphSearch{
 			int n = neighbourSearch(reader.graph(), i).size();
 			System.out.println("Number of nodes with at least " +  i + " neighbours: " + n);
 		}else if(args[0].equals("-p3")){
-			System.out.println("number of nodes with fully connected neighbours: " + findFullyConnectedNeighbours(reader.graph()).size());
+			System.out.println("Number of nodes with fully connected neighbours: " + findFullyConnectedNeighbours(reader.graph()).size());
 		}else if(args[0].equals("-p4")){
 			int i = Integer.parseInt(args[2]);
 			System.out.println("Number of cliques of size " +  i + ": " + findNumberOfCliques(reader.graph(), i));		
 		}
-		/*//Test Code
-		Graph test 	= new Graph();
-		Node[] n 	= {new Node("0"), new Node("1"),new Node("2"), new Node("3"), new Node("4"), new Node("5")};
-		n[0].addNeighbour(n[4]);
-		n[1].addNeighbour(n[2]);n[1].addNeighbour(n[5]);n[1].addNeighbour(n[3]);
-		n[2].addNeighbour(n[1]);n[2].addNeighbour(n[3]);n[2].addNeighbour(n[4]);
-		n[3].addNeighbour(n[2]);n[3].addNeighbour(n[1]);
-		n[4].addNeighbour(n[5]);n[4].addNeighbour(n[0]);n[4].addNeighbour(n[2]);
-		n[5].addNeighbour(n[1]);n[5].addNeighbour(n[4]);
-		for(int i = 0; i < 6; i++)		
-			test.add(n[i]);
-		for(int i = 1; i < 10; i++)
-			System.out.println("Number of cliques of size " +  i + ": " + findNumberOfCliques(reader.graph(), i));
-		*/
 	}
 
 	private static void printOut(Set<Node> nodes) {
